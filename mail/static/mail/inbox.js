@@ -30,11 +30,14 @@ function compose_email() {
   document.querySelector('#compose-body').value = '';
 }
 
+
 function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
+  
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
@@ -44,11 +47,47 @@ function load_mailbox(mailbox) {
 }
 
 
+function load_email(){
+
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'block';
+  
+}
+
 
 async function getEmail(email_id) {
   let response = await fetch(`/emails/${email_id}`);
   let email = await response.json();
-   console.log(email)
+
+  
+  
+  const email_div = document.createElement('div');
+
+  let from = document.createElement('p');
+  let to = document.createElement('p');
+  let subject = document.createElement('p');
+  let timestamp = document.createElement('p');
+  let body = document.createElement('p');
+
+  from.innerHTML = `From:${email.sender}`;
+  to.innerHTML = `To:${email.recipients}`;
+  subject.innerHTML = `Subject:${email.subject}`;
+  timestamp.innerHTML = `Timestamp:${email.timestamp}`;
+  body.innerHTML = email.body;
+
+
+  const reply = document.createElement('button');
+  reply.innerHTML = "Reply";
+
+  email_div.append(from, to, subject, timestamp, reply, body);
+
+  document.querySelector('#email-view').append(email_div);
+
+  load_email();
+
+
+
 }
 
 
@@ -56,16 +95,16 @@ async function getEmail(email_id) {
 
 async function loadEmails(mailbox) {
 
-  let response = await fetch('/emails/' + mailbox);
+  let response = await fetch(`/emails/${mailbox}`);
   let data = await response.json();
-  var divMain = document.querySelector('#emails-view');
+  let divMain = document.querySelector('#emails-view');
   
   // fill innerHtml of divMain 
   data.forEach(key => {
-    var div = document.createElement("div");
-    var sender = document.createElement('p');
-    var subject = document.createElement('p');
-    var timestamp =  document.createElement('p');
+    let div = document.createElement("div");
+    let sender = document.createElement('p');
+    let subject = document.createElement('p');
+    let timestamp =  document.createElement('p');
 
     sender.setAttribute('class', 'sender-p');
     subject.setAttribute('class', 'subject-p');
@@ -74,7 +113,6 @@ async function loadEmails(mailbox) {
     sender.innerHTML = key["sender"];
     subject.innerHTML = key["subject"];
     timestamp.innerHTML = key["timestamp"];
-
     div.append(sender, subject, timestamp);
   
     if (key.read){
@@ -82,6 +120,7 @@ async function loadEmails(mailbox) {
     } else {
       div.setAttribute('class', 'info-div');
     }
+
     divMain.append(div);
     div.childNodes.forEach(element  => {
       element.onclick = () => {getEmail(key.id)};
@@ -94,9 +133,9 @@ async function loadEmails(mailbox) {
 
 async function send(event) {
   event.preventDefault();
-  var recipients = document.querySelector('#compose-recipients').value;
-  var subject = document.querySelector('#compose-subject').value;
-  var body = document.querySelector('#compose-body').value;
+  let recipients = document.querySelector('#compose-recipients').value;
+  let subject = document.querySelector('#compose-subject').value;
+  let body = document.querySelector('#compose-body').value;
 
   let response = await fetch('/emails', {
       method: 'POST',

@@ -11,7 +11,7 @@ textarea {
 }
 
 
-p {
+.info-div > p {
     display: inline-block;
 }
 
