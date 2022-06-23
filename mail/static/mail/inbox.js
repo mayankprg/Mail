@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
   // Use buttons to toggle between views
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
@@ -9,37 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // By default, load the inbox
   load_mailbox('inbox');
 
+  document.querySelector('#compose-form').onsubmit = send;
   // send email to recipient/s
-  document.querySelector('#compose-form').addEventListener('submit', event => {
-    event.preventDefault();
-
-    var recipients = document.querySelector('#compose-recipients').value;
-    var subject = document.querySelector('#compose-subject').value;
-    var body = document.querySelector('#compose-body').value;
-
-    fetch('/emails', {
-      method: 'POST',
-      body: JSON.stringify({
-        recipients: recipients,
-        subject: subject,
-        body: body,
-      })
-    })
-    .then(response => response.json())
-    .then(result => {
-      if ('error' in result){
-        alert(result.error);
-      } else {
-        alert(result.message);
-        document.querySelector('#sent').click();
-      }
-    });
-  });
-
-
-
-
+ 
+  
 });
+
+
 
 
 function compose_email() {
@@ -63,35 +39,81 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
   
+  loadEmails(mailbox);
 
-  (async mailbox => {
-    let response = await fetch('emails/' + mailbox);
-    let data = await response.json();
+}
+
+
+
+async function getEmail(email_id) {
+  let response = await fetch(`/emails/${email_id}`);
+  let email = await response.json();
+   console.log(email)
+}
+
+
+
+
+async function loadEmails(mailbox) {
+
+  let response = await fetch('/emails/' + mailbox);
+  let data = await response.json();
+  var divMain = document.querySelector('#emails-view');
+  
+  // fill innerHtml of divMain 
+  data.forEach(key => {
+    var div = document.createElement("div");
+    var sender = document.createElement('p');
+    var subject = document.createElement('p');
+    var timestamp =  document.createElement('p');
+
+    sender.setAttribute('class', 'sender-p');
+    subject.setAttribute('class', 'subject-p');
+    timestamp.setAttribute('class', 'timestamp-p');
+
+    sender.innerHTML = key["sender"];
+    subject.innerHTML = key["subject"];
+    timestamp.innerHTML = key["timestamp"];
+
+    div.append(sender, subject, timestamp);
+  
+    if (key.read){
+      div.setAttribute('class', 'grey info-div');
+    } else {
+      div.setAttribute('class', 'info-div');
+    }
+    divMain.append(div);
+    div.childNodes.forEach(element  => {
+      element.onclick = () => {getEmail(key.id)};
+    })
     
-    var divMain = document.querySelector('#emails-view');
-    divMain.setAttribute('class', 'info-div');
-    // fill innerHtml of divMain 
-    data.forEach(element => {
-      var div = document.createElement("div");
-      var sender = document.createElement('p');
-      var subject = document.createElement('p');
-      var timestamp =  document.createElement('p');
+  });
 
-      sender.setAttribute('class', 'sender-p');
-      subject.setAttribute('class', 'subject-p');
-      timestamp.setAttribute('class', 'timestamp-p');
-
-      sender.innerHTML = element["sender"];
-      subject.innerHTML = element["subject"];
-      timestamp.innerHTML = element["timestamp"];
-
-      div.append(sender,subject, timestamp);
-      divMain.append(div);
-    });
-  })(mailbox);
+}
 
 
+async function send(event) {
+  event.preventDefault();
+  var recipients = document.querySelector('#compose-recipients').value;
+  var subject = document.querySelector('#compose-subject').value;
+  var body = document.querySelector('#compose-body').value;
 
+  let response = await fetch('/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+        recipients: recipients,
+        subject: subject,
+        body: body,
+      })
+  });
+  let result = await response.json();
+  if ('error' in result){
+    alert(result.error);
+  } else {
+    console.log(result)
+    load_mailbox("sent");
+  }
+  
 }
 
 
