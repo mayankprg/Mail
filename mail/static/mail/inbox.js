@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // send email to recipient/s
  
   
+  
 });
 
 
@@ -23,11 +24,13 @@ function compose_email() {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#email-view').style.display = 'none';
 
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
+
 }
 
 
@@ -38,7 +41,6 @@ function load_mailbox(mailbox) {
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'none';
   
-
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
   
@@ -52,23 +54,29 @@ function load_email(){
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
+
+  document.querySelector('#email-view').innerHTML = "";
   
 }
 
 
-async function getEmail(email_id) {
+async function getEmail(email_id, mailbox) {
   let response = await fetch(`/emails/${email_id}`);
   let email = await response.json();
 
-  
-  
+  load_email();
+  read(email_id);
+
   const email_div = document.createElement('div');
+  const hr = document.createElement('hr');
 
   let from = document.createElement('p');
   let to = document.createElement('p');
   let subject = document.createElement('p');
   let timestamp = document.createElement('p');
   let body = document.createElement('p');
+  let button = document.createElement('button');
+    
 
   from.innerHTML = `From:${email.sender}`;
   to.innerHTML = `To:${email.recipients}`;
@@ -76,21 +84,29 @@ async function getEmail(email_id) {
   timestamp.innerHTML = `Timestamp:${email.timestamp}`;
   body.innerHTML = email.body;
 
+  button.setAttribute('id', 'archive-btn');
 
+    if (email.archived === false){
+      button.innerHTML = "Archive";
+    } else {
+      button.innerHTML = "unarchive";
+    }
+  
   const reply = document.createElement('button');
   reply.innerHTML = "Reply";
 
-  email_div.append(from, to, subject, timestamp, reply, body);
-
+  if (mailbox === "inbox"){
+    button.onclick = () => {archive(email.id)};
+    email_div.append(from, to, subject, timestamp, reply, button, hr, body);
+  } else if (mailbox === "archive") {
+    button.onclick = () => {unarchive(email.id)};
+    email_div.append(from, to, subject, timestamp, reply, button, hr, body);
+  } else {
+    email_div.append(from, to, subject, timestamp, reply, hr, body);
+  }
+ 
   document.querySelector('#email-view').append(email_div);
-
-  load_email();
-
-
-
 }
-
-
 
 
 async function loadEmails(mailbox) {
@@ -123,15 +139,15 @@ async function loadEmails(mailbox) {
 
     divMain.append(div);
     div.childNodes.forEach(element  => {
-      element.onclick = () => {getEmail(key.id)};
+      element.onclick = () => {getEmail(key.id, mailbox)};
     })
-    
   });
 
 }
 
 
 async function send(event) {
+
   event.preventDefault();
   let recipients = document.querySelector('#compose-recipients').value;
   let subject = document.querySelector('#compose-subject').value;
@@ -156,3 +172,36 @@ async function send(event) {
 }
 
 
+async function read(email_id){
+
+ let response = await fetch(`/emails/${email_id}`, {
+  method: "PUT",
+  body: JSON.stringify({
+    read: true
+  })
+ })
+}
+
+
+async function archive(email_id){
+
+  let response = await fetch(`/emails/${email_id}`, {
+   method: "PUT",
+   body: JSON.stringify({
+     archived: true
+   })
+  })
+  load_mailbox('inbox');
+}
+
+
+async function unarchive(email_id){
+
+  let response = await fetch(`/emails/${email_id}`, {
+   method: "PUT",
+   body: JSON.stringify({
+     archived: false
+   })
+  })
+  load_mailbox('inbox');
+}
