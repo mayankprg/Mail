@@ -12,11 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#compose-form').onsubmit = send;
   // send email to recipient/s
  
-  
-  
 });
-
-
 
 
 function compose_email() {
@@ -31,6 +27,29 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
 
+}
+
+
+async function reply_view(email_id){
+
+  let email = await getEmail(email_id);
+
+  let recipients = email.sender;
+  let body = `on ${email.timestamp} ${email.sender} wrote:${email.body}`;
+  let subject = email.subject;
+
+  if (!subject.startsWith("Re:")){
+     subject = "Re:" + email.subject;
+  }
+
+  compose_email();
+
+  // composition fields
+  document.querySelector('#compose-recipients').value = recipients;
+  document.querySelector('#compose-subject').value = subject;
+  document.querySelector('#compose-body').value = body;
+
+ 
 }
 
 
@@ -104,7 +123,7 @@ async function load_email(email_id, mailbox) {
   reply.innerHTML = "Reply";
 
   // TODO change
-  reply.addEventListener('click',  compose_email);
+  reply.onclick = () => {reply_view(email_id)}
 
   if (mailbox === "inbox"){
     button.onclick = () => {archive(email.id)};
@@ -118,7 +137,6 @@ async function load_email(email_id, mailbox) {
 
   document.querySelector('#email-view').append(email_div);
 }
-
 
 
 async function send(event) {
@@ -182,19 +200,9 @@ async function unarchive(email_id){
 }
 
 
-
-// function reply(email_id){
-
- 
-// }
-
-
-
 async function get_emails(mailbox) {
   let response = await fetch(`/emails/${mailbox}`);
   return await response.json();
-
-
 }
 
 
