@@ -44,12 +44,12 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
   
-  loadEmails(mailbox);
+  emails_view(mailbox);
 
 }
 
 
-function load_email(){
+function load_email_view(){
 
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
@@ -60,11 +60,19 @@ function load_email(){
 }
 
 
-async function getEmail(email_id, mailbox) {
-  let response = await fetch(`/emails/${email_id}`);
-  let email = await response.json();
+async function getEmail(email_id) {
 
-  load_email();
+  let response = await fetch(`/emails/${email_id}`);
+  return await response.json();
+
+}
+
+
+async function load_email(email_id, mailbox) {
+
+  let email = await getEmail(email_id);
+ 
+  load_email_view();
   read(email_id);
 
   const email_div = document.createElement('div');
@@ -76,7 +84,6 @@ async function getEmail(email_id, mailbox) {
   let timestamp = document.createElement('p');
   let body = document.createElement('p');
   let button = document.createElement('button');
-    
 
   from.innerHTML = `From:${email.sender}`;
   to.innerHTML = `To:${email.recipients}`;
@@ -93,7 +100,11 @@ async function getEmail(email_id, mailbox) {
     }
   
   const reply = document.createElement('button');
+  reply.setAttribute('id', 'reply-btn');
   reply.innerHTML = "Reply";
+
+  // TODO change
+  reply.addEventListener('click',  compose_email);
 
   if (mailbox === "inbox"){
     button.onclick = () => {archive(email.id)};
@@ -104,46 +115,10 @@ async function getEmail(email_id, mailbox) {
   } else {
     email_div.append(from, to, subject, timestamp, reply, hr, body);
   }
- 
+
   document.querySelector('#email-view').append(email_div);
 }
 
-
-async function loadEmails(mailbox) {
-
-  let response = await fetch(`/emails/${mailbox}`);
-  let data = await response.json();
-  let divMain = document.querySelector('#emails-view');
-  
-  // fill innerHtml of divMain 
-  data.forEach(key => {
-    let div = document.createElement("div");
-    let sender = document.createElement('p');
-    let subject = document.createElement('p');
-    let timestamp =  document.createElement('p');
-
-    sender.setAttribute('class', 'sender-p');
-    subject.setAttribute('class', 'subject-p');
-    timestamp.setAttribute('class', 'timestamp-p');
-
-    sender.innerHTML = key["sender"];
-    subject.innerHTML = key["subject"];
-    timestamp.innerHTML = key["timestamp"];
-    div.append(sender, subject, timestamp);
-  
-    if (key.read){
-      div.setAttribute('class', 'grey info-div');
-    } else {
-      div.setAttribute('class', 'info-div');
-    }
-
-    divMain.append(div);
-    div.childNodes.forEach(element  => {
-      element.onclick = () => {getEmail(key.id, mailbox)};
-    })
-  });
-
-}
 
 
 async function send(event) {
@@ -204,4 +179,57 @@ async function unarchive(email_id){
    })
   })
   load_mailbox('inbox');
+}
+
+
+
+// function reply(email_id){
+
+ 
+// }
+
+
+
+async function get_emails(mailbox) {
+  let response = await fetch(`/emails/${mailbox}`);
+  return await response.json();
+
+
+}
+
+
+async function emails_view(mailbox){
+
+  let data = await get_emails(mailbox);
+
+  let divMain = document.querySelector('#emails-view');
+  
+  // fill innerHtml of divMain 
+  data.forEach(key => {
+    let div = document.createElement("div");
+    let sender = document.createElement('p');
+    let subject = document.createElement('p');
+    let timestamp =  document.createElement('p');
+
+    sender.setAttribute('class', 'sender-p');
+    subject.setAttribute('class', 'subject-p');
+    timestamp.setAttribute('class', 'timestamp-p');
+
+    sender.innerHTML = key["sender"];
+    subject.innerHTML = key["subject"];
+    timestamp.innerHTML = key["timestamp"];
+    div.append(sender, subject, timestamp);
+  
+    if (key.read){
+      div.setAttribute('class', 'grey info-div');
+    } else {
+      div.setAttribute('class', 'info-div');
+    }
+
+    divMain.append(div);
+    div.childNodes.forEach(element  => {
+      element.onclick = () => {load_email(key.id, mailbox)};
+    })
+  });
+
 }
