@@ -6,19 +6,30 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import User, Email
-
+from .serializers import EmailSerializer
 
 def index(request):
 
     # Authenticated users view their inbox
-    if request.user.is_authenticated:
-        return render(request, "mail/inbox.html")
+    # if request.user.is_authenticated:
+    return render(request, "index.html")
 
-    # Everyone else is prompted to sign in
-    else:
-        return HttpResponseRedirect(reverse("login"))
+    # # Everyone else is prompted to sign in
+    # else:
+    #     return HttpResponseRedirect(reverse("index.html"))
+
+
+
+
+@api_view(['GET'])
+def test(request):
+    user = User.objects.get(id=3)
+    emails = Email.objects.filter(user=user, recipients=user, archived=False)   
+        
+    return Response([EmailSerializer(email).data for email in emails])
 
 
 @csrf_exempt
@@ -126,6 +137,7 @@ def email(request, email_id):
         }, status=400)
 
 
+@api_view(["POST", "GET"])
 def login_view(request):
     if request.method == "POST":
 
@@ -133,17 +145,16 @@ def login_view(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = authenticate(request, username=email, password=password)
-
+        print(f"{email}, {password}")
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            # TODO what will happen for react
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "mail/login.html", {
-                "message": "Invalid email and/or password."
-            })
+            return Response({"error": "invalid Username /or Password"})
     else:
-        return render(request, "mail/login.html")
+        return Response({"view": "login"})
 
 
 def logout_view(request):
