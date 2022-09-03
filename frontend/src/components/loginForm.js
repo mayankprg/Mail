@@ -1,26 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-const axios = require('axios').default;
-
+import AuthContext from '../context/authContext';
 
 const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({
         email: '',
-        password: ''
+        password: '',
     });
+
+    let {loginUser}  = useContext(AuthContext);
 
     let handleSubmit = event =>{
         event.preventDefault();
-        const formData = new FormData();
-        formData.append('email', this.state.email)
-        formData.append('password', this.state.password)
-        axios.post('/login', formData)
-        .then(response => {
-            console.log(response);
-        })
+        loginUser(credentials)
     }
 
     const handleEmailChange = (event)=>{

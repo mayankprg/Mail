@@ -15,12 +15,11 @@ class UserWithTokenSerializer(serializers.ModelSerializer):
     pass
 
 
-
 class EmailSerializer(serializers.ModelSerializer):
    
-
     recipientsList = serializers.ListField(source='getRecipientsEmails')
     timestamp = serializers.DateTimeField( format="%b %d %Y, %I:%M %p")
+
     class Meta:
         model = Email
         fields = ['sender', 'recipientsList', 'subject', 'body', 'timestamp', 'read', 'archived']

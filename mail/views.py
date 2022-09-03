@@ -11,6 +11,10 @@ from rest_framework.response import Response
 from .models import User, Email
 from .serializers import EmailSerializer
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
 def index(request):
 
     # Authenticated users view their inbox
@@ -22,14 +26,27 @@ def index(request):
     #     return HttpResponseRedirect(reverse("index.html"))
 
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        return token
 
 
-@api_view(['GET'])
-def test(request):
-    user = User.objects.get(id=3)
-    emails = Email.objects.filter(user=user, recipients=user, archived=False)   
-        
-    return Response([EmailSerializer(email).data for email in emails])
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+
+"""
+    TODO create other routes 
+
+     learn react routes 
+
+"""
+
 
 
 @csrf_exempt
