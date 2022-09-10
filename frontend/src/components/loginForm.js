@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/authContext';
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
 
@@ -44,6 +45,7 @@ const LoginForm = () => {
         <Button variant="primary" type="submit">
         Login
         </Button>
+        <Link to="/register">Sign up</Link>
     </Form>
 
 

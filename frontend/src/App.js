@@ -3,26 +3,46 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './pages/loginPage';
 import Inbox from './pages/Inbox'
-import React, { Component } from 'react'
+import React from 'react'
 import {AuthProvider} from './context/authContext';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Header from './components/header';
 import ComposePage from './pages/composePage';
 import ArchivedPage from './pages/archivedPage';
+import PrivateRoute from './utils/privateRoute';
+import RegisterPage from './pages/registerPage';
+
 
 export const App = () => {
+
+
   return (
     <div className='App'>
         <Router>
 
           <AuthProvider>
-            <Header/>  
+            <Header/>
             <Routes>
-                
-                <Route path="/" element={<Inbox/>}  />
-                <Route path="/login" element={<LoginPage/>} />
-                <Route path="/compose" element={<ComposePage/>} />
-                <Route path="/archived" element={<ArchivedPage/>} />
+                <Route path="/"
+                 element={
+                  <PrivateRoute> 
+                    <Inbox/>
+                  </PrivateRoute> 
+                }/>
+                <Route exact path="/login" element={<LoginPage/>}  />
+                <Route path="/compose" 
+                  element={ 
+                    <PrivateRoute> 
+                      <ComposePage/>
+                    </PrivateRoute> 
+                  }/>
+                <Route path="/archived"
+                 element={
+                  <PrivateRoute> 
+                    <ArchivedPage/> 
+                  </PrivateRoute> 
+                }/>
+                 <Route exact path="/register" element={<RegisterPage/>}  />
             </Routes>
           </AuthProvider>
         

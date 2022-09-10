@@ -1,29 +1,41 @@
 import json
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import JsonResponse
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
-from django.urls import reverse
+from django.shortcuts import HttpResponse, render
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,  permission_classes
 from rest_framework.response import Response
 from .models import User, Email
-from .serializers import EmailSerializer
-
+from .serializers import EmailSerializer, SignupSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-def index(request):
 
-    # Authenticated users view their inbox
-    # if request.user.is_authenticated:
+
+
+def index(request):
     return render(request, "index.html")
 
-    # # Everyone else is prompted to sign in
-    # else:
-    #     return HttpResponseRedirect(reverse("index.html"))
+
+@api_view(['POST'])
+def signup(request):
+    
+    serializer = SignupSerializer(data=request.data)
+    data = {}
+    if serializer.is_valid():
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=201)
+    else:
+        data = serializer.errors
+    return Response(data)
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -40,28 +52,20 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-"""
-    TODO create other routes 
-
-     learn react routes 
-
-"""
-
-
-
 @csrf_exempt
-@login_required
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
 def compose(request):
 
     # Composing a new email must be via POST
     if request.method != "POST":
-        return JsonResponse({"error": "POST request required."}, status=400)
+        return Response({"error": "POST request required."}, status=400)
 
     # Check recipient emails
-    data = json.loads(request.body)
+    data = json.loads(request.data)
     emails = [email.strip() for email in data.get("recipients").split(",")]
     if emails == [""]:
-        return JsonResponse({
+        return Response({
             "error": "At least one recipient required."
         }, status=400)
 
@@ -72,7 +76,7 @@ def compose(request):
             user = User.objects.get(email=email)
             recipients.append(user)
         except User.DoesNotExist:
-            return JsonResponse({
+            return Response({
                 "error": f"User with email {email} does not exist."
             }, status=400)
 
@@ -96,10 +100,11 @@ def compose(request):
         for recipient in recipients:
             email.recipients.add(recipient)
         email.save()
-    return JsonResponse({"message": "Email sent successfully."}, status=201)
+    return Response({"message": "Email sent successfully."}, status=201)
 
 
-@login_required
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def mailbox(request, mailbox):
 
     # Filter emails returned based on mailbox
@@ -116,26 +121,27 @@ def mailbox(request, mailbox):
             user=request.user, recipients=request.user, archived=True
         )
     else:
-        return JsonResponse({"error": "Invalid mailbox."}, status=400)
+        return Response({"error": "Invalid mailbox."}, status=400)
 
     # Return emails in reverse chronologial order
     emails = emails.order_by("-timestamp").all()
-    return JsonResponse([email.serialize() for email in emails], safe=False)
+    return Response([EmailSerializer(email).data for email in emails])
 
 
 @csrf_exempt
-@login_required
+@permission_classes([IsAuthenticated])
+@api_view(['GET','PUT'])
 def email(request, email_id):
 
     # Query for requested email
     try:
         email = Email.objects.get(user=request.user, pk=email_id)
     except Email.DoesNotExist:
-        return JsonResponse({"error": "Email not found."}, status=404)
+        return Response({"error": "Email not found."}, status=404)
 
     # Return email contents
     if request.method == "GET":
-        return JsonResponse(email.serialize())
+        return Response(EmailSerializer(email).data)
 
     # Update whether email is read or should be archived
     elif request.method == "PUT":
@@ -145,62 +151,11 @@ def email(request, email_id):
         if data.get("archived") is not None:
             email.archived = data["archived"]
         email.save()
-        return HttpResponse(status=204)
+        return Response(status=204)
 
     # Email must be via GET or PUT
     else:
-        return JsonResponse({
+        return Response({
             "error": "GET or PUT request required."
         }, status=400)
 
-
-@api_view(["POST", "GET"])
-def login_view(request):
-    if request.method == "POST":
-
-        # Attempt to sign user in
-        email = request.POST["email"]
-        password = request.POST["password"]
-        user = authenticate(request, username=email, password=password)
-        print(f"{email}, {password}")
-        # Check if authentication successful
-        if user is not None:
-            login(request, user)
-            # TODO what will happen for react
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            return Response({"error": "invalid Username /or Password"})
-    else:
-        return Response({"view": "login"})
-
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect(reverse("index"))
-
-
-def register(request):
-    if request.method == "POST":
-        email = request.POST["email"]
-
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            return render(request, "mail/register.html", {
-                "message": "Passwords must match."
-            })
-
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(email, email, password)
-            user.save()
-        except IntegrityError as e:
-            print(e)
-            return render(request, "mail/register.html", {
-                "message": "Email address already taken."
-            })
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
-    else:
-        return render(request, "mail/register.html")

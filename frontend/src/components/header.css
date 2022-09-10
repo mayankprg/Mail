@@ -1,0 +1,10 @@
+.header-nav{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.header-nav > li{
+    margin: 0 10px;
+    list-style-type: none;
+}

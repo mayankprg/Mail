@@ -1,0 +1,8 @@
+.App {
+    border: solid 2px black;
+    margin: 15px 15px;
+    padding: 5px;
+    overflow-y: scroll;
+    height: 95vh;
+    border-radius: 24px;
+}
