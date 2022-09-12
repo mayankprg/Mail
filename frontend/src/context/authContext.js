@@ -17,10 +17,11 @@ export const AuthProvider = ({children}) => {
     let navigate = useNavigate();
 
     let logout = () =>{
-        setAuthTokens(null)
-        setUser(null)
-        localStorage.removeItem('authTokens')
-        navigate('/login')
+        setAuthTokens(null);
+        setUser(null);
+        localStorage.removeItem('authTokens');
+        navigate('/login');
+        // setLoading(true);
     }
 
     let loginUser = async (props) => {
@@ -43,10 +44,10 @@ export const AuthProvider = ({children}) => {
         let fourMinutes = 1000 * 60 * 4;
         let interval = setInterval(() => {
             if(authTokens){
-                updateToken()
+                updateToken();
             }
         }, fourMinutes)
-        return ()=> clearInterval(interval)
+        return ()=> clearInterval(interval);
 
     }, [authTokens, loading]);
 
@@ -59,7 +60,7 @@ export const AuthProvider = ({children}) => {
             setUser(jwt_decode(response.data.access));
             localStorage.setItem('authnTokens', JSON.stringify(response.data));
         } else {
-            logout()
+            logout();
         }
     }
     

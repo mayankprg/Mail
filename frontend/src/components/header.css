@@ -8,3 +8,16 @@
     margin: 0 10px;
     list-style-type: none;
 }
+
+
+.link-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline;
+    color: #0d6efd;
+    margin: 0;
+    padding: 0;
+  }
+

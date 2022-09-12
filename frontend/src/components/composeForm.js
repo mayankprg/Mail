@@ -3,19 +3,39 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/authContext';
 
+
+
+const axios = require('axios').default;
+
+
 const ComposeForm = () => {
 
-    let {user} = useContext(AuthContext);
+    let {user, authTokens} = useContext(AuthContext);
 
     let [email, setEmail] = useState({
         from: user.username,
-        to: "",
+        recipients: "",
         subject: "",
         body: "",
     })
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
+        let response = await axios.post(`http://127.0.0.1:8000/api/emails`,  { 
+                recipients: email.recipients,
+                body: email.body,
+                subject: email.subject
+            },
+        { 
+            headers:
+                {
+                    'Content-Type': 'application/json'
+                    ,'Authorization': 'Bearer ' + String(authTokens.access)
+                    
+                }
+        }
+        ); 
+        console.log(response)
 
     }
 
@@ -29,8 +49,8 @@ const ComposeForm = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>To:</Form.Label>
                 <Form.Control type="email"  placeholder="Enter email"  
-                value={email.to}
-                onChange={e=>setEmail({...email, to: e.target.value})} />
+                value={email.recipients}
+                onChange={e=>setEmail({...email, recipients: e.target.value})} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="floatingTextarea2">
                 <Form.Label>Subject:</Form.Label>

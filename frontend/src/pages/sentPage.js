@@ -1,8 +1,14 @@
 import React from 'react'
+import SentMails from '../components/sentMails'
+
 
 const SentPage = () => {
   return (
-    <div>sentPage</div>
+    <div>
+      sentPage
+
+        <SentMails/>
+    </div>
   )
 }
 

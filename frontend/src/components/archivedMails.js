@@ -5,13 +5,13 @@ import RenderMails from './renderMails';
 const axios = require('axios').default;
 
 
-const InboxMails = () => {
+const ArchivedMails = () => {
 
     let {authTokens} = useContext(AuthContext);
     let [data, setData] = useState([]);
 
     let getEmails = async () =>{
-        let response = await axios.get(`http://127.0.0.1:8000/api/emails/inbox`,
+        let response = await axios.get(`http://127.0.0.1:8000/api/emails/archive`,
         { headers:
              { 
                 'Content-Type': 'application/json'
@@ -26,18 +26,19 @@ const InboxMails = () => {
    }
 
    useEffect(()=>{
-    if (authTokens !== null){
-      getEmails()
-      .then(data =>setData(data));
-     
-    }
+      if (authTokens !== null){
+        getEmails()
+        .then(data =>setData(data));
+      
+      }
    },[authTokens])
 
 
-  return (
+
+   return (
     data.length > 0 ?  <RenderMails data={data} /> : null
    
   )
 }
 
-export default InboxMails;
+export default ArchivedMails

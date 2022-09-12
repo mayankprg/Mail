@@ -20,7 +20,17 @@ const Header = () => {
               <Link to="/compose">compose</Link>
             </li>
             <li>
-              <a href='#' onClick={logout}>Logout</a>
+              <Link to="/sent">sent</Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="link-button"
+                onClick={logout}
+              >
+              Logout
+            </button>
+
             </li>
             <li>
               <Link to="/archived">Archived</Link>

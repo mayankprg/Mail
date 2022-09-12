@@ -48,7 +48,8 @@ class EmailSerializer(serializers.ModelSerializer):
    
     recipientsList = serializers.ListField(source='getRecipientsEmails')
     timestamp = serializers.DateTimeField(format="%b %d %Y, %I:%M %p")
+    sender = serializers.EmailField(source='sender.email')
 
     class Meta:
         model = Email
-        fields = ['sender', 'recipientsList', 'subject', 'body', 'timestamp', 'read', 'archived']
+        fields = ['id' ,'sender', 'recipientsList', 'subject', 'body', 'timestamp', 'read', 'archived']

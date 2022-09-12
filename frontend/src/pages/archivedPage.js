@@ -1,8 +1,11 @@
 import React from 'react'
+import ArchivedMails from '../components/archivedMails'
 
 const ArchivedPage = () => {
   return (
-    <div>ArchivedPage</div>
+    <div>
+      <ArchivedMails />
+    </div>
   )
 }
 

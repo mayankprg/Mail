@@ -1,8 +1,5 @@
 import json
-from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
-from django.http import JsonResponse
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view,  permission_classes
 from rest_framework.response import Response
@@ -23,7 +20,6 @@ def index(request):
 
 @api_view(['POST'])
 def signup(request):
-    
     serializer = SignupSerializer(data=request.data)
     data = {}
     if serializer.is_valid():
@@ -62,7 +58,7 @@ def compose(request):
         return Response({"error": "POST request required."}, status=400)
 
     # Check recipient emails
-    data = json.loads(request.data)
+    data = json.loads(json.dumps(request.data))
     emails = [email.strip() for email in data.get("recipients").split(",")]
     if emails == [""]:
         return Response({
@@ -125,7 +121,7 @@ def mailbox(request, mailbox):
 
     # Return emails in reverse chronologial order
     emails = emails.order_by("-timestamp").all()
-    return Response([EmailSerializer(email).data for email in emails])
+    return Response([EmailSerializer(email).data for email in emails], status=200)
 
 
 @csrf_exempt

@@ -5,9 +5,8 @@ import InboxMails from '../components/inboxMails';
 const InboxPage = () => {
   return (
     <div>
-
-      <InboxMails/>
     inbox
+      <InboxMails/>
     </div>
   )
 }

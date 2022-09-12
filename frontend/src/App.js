@@ -2,7 +2,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './pages/loginPage';
-import Inbox from './pages/Inbox'
+import Inbox from './pages/InboxPage'
 import React from 'react'
 import {AuthProvider} from './context/authContext';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -11,7 +11,7 @@ import ComposePage from './pages/composePage';
 import ArchivedPage from './pages/archivedPage';
 import PrivateRoute from './utils/privateRoute';
 import RegisterPage from './pages/registerPage';
-
+import SentPage from './pages/sentPage'
 
 export const App = () => {
 
@@ -34,6 +34,12 @@ export const App = () => {
                   element={ 
                     <PrivateRoute> 
                       <ComposePage/>
+                    </PrivateRoute> 
+                  }/>
+                    <Route path="/sent" 
+                  element={ 
+                    <PrivateRoute> 
+                      <SentPage/>
                     </PrivateRoute> 
                   }/>
                 <Route path="/archived"
