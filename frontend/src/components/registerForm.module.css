@@ -1,0 +1,109 @@
+.registerform {
+    
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    width: min(500px, 40vw);
+    height: min(500px, 40vw);
+    background-color: #e94e1b;
+    color: #fff;
+}
+
+
+.registerform > p {
+	color: #fff;
+    font-weight: bold;
+}
+
+
+@media (max-width: 1012px) {
+    .registerform {
+        width: 100%;
+        height: 100%; 
+        padding: 25px 20px ;
+    }
+
+    .registerform > form > label {
+        width: 60%;
+    }
+    
+
+
+}
+
+@media (max-width: 532px) {
+    .registerform {
+        width: 100%;
+        height: 100%; 
+        padding: 10px 0 10px 0;
+    }
+
+    .registerform > form > label {
+        width: 90%;
+    }
+    
+
+
+}
+
+
+
+
+
+.registerform > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.registerform label {
+    display: block;
+    margin: 0.5rem 0;
+    color: #fff;
+    width: min(300px, 25vw);
+}
+
+
+.registerform input:not([type='submit'])  {
+    
+    padding: 10px;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    justify-content: center;
+    /* margin: 2px auto; */
+    outline: none;
+    border: none;
+    background: #eeeded;
+    font-weight: 300;
+}
+
+
+.registerform input[type="submit"]{
+    width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #08a19a;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.divider {
+    border-top: 1px solid black;
+    width: 100%;
+    margin: 5px 0;
+}

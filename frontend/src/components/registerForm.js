@@ -1,8 +1,9 @@
 import React,{ useState, useContext } from 'react'
-import './registerForm.css'
+import SignupCSS from './registerForm.module.css'
 import AuthContext from '../context/authContext';
 import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 
 
 const axios = require('axios').default;
@@ -53,7 +54,7 @@ const RegisterForm = () => {
 
 
   return (
-      <div className='registerform'>
+      <div className={SignupCSS.registerform}>
         <p>Make An Account</p>
         
          <form onSubmit={handleSubmit}>
@@ -76,6 +77,9 @@ const RegisterForm = () => {
                 onChange={(event)=>setValues({...values, confirmPassword: event.target.value})} />
             </label>
             <input type="submit" name="Signup" value="Sign up"/>
+            <div className={SignupCSS.divider}></div>
+            <p>Already have an account?</p>
+            <Link to="/login">Login</Link>
         </form>
     </div>
    )

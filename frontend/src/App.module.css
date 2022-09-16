@@ -1,0 +1,18 @@
+.App {
+    border: solid 2px black;
+    margin: 0 15px;
+    padding: 5px;
+    overflow-y: scroll;
+    height: 85vh;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.heading {
+    font-family: "Pocket Money", Times, serif;
+    text-align: center;
+    font-size: 43pt;
+}
+

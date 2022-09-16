@@ -1,5 +1,5 @@
 
-import './App.css';
+import AppCSS from  './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './pages/loginPage';
 import Inbox from './pages/InboxPage'
@@ -17,42 +17,44 @@ export const App = () => {
 
 
   return (
-    <div className='App'>
+    <div>
+      <h1 className={AppCSS.heading}>Mail.COM</h1>
+      <div className={AppCSS.App}>
         <Router>
-
-          <AuthProvider>
-            <Header/>
-            <Routes>
-                <Route path="/"
-                 element={
-                  <PrivateRoute> 
-                    <Inbox/>
-                  </PrivateRoute> 
-                }/>
-                <Route exact path="/login" element={<LoginPage/>}  />
-                <Route path="/compose" 
-                  element={ 
+            <AuthProvider>
+              <Header/>
+              <Routes>
+                  <Route path="/"
+                  element={
                     <PrivateRoute> 
-                      <ComposePage/>
+                      <Inbox/>
                     </PrivateRoute> 
                   }/>
-                    <Route path="/sent" 
-                  element={ 
+                  <Route exact path="/login" element={<LoginPage/>}  />
+                  <Route path="/compose" 
+                    element={ 
+                      <PrivateRoute> 
+                        <ComposePage/>
+                      </PrivateRoute> 
+                    }/>
+                      <Route path="/sent" 
+                    element={ 
+                      <PrivateRoute> 
+                        <SentPage/>
+                      </PrivateRoute> 
+                    }/>
+                  <Route path="/archived"
+                  element={
                     <PrivateRoute> 
-                      <SentPage/>
+                      <ArchivedPage/> 
                     </PrivateRoute> 
                   }/>
-                <Route path="/archived"
-                 element={
-                  <PrivateRoute> 
-                    <ArchivedPage/> 
-                  </PrivateRoute> 
-                }/>
-                 <Route exact path="/register" element={<RegisterPage/>}  />
-            </Routes>
-          </AuthProvider>
-        
-        </Router>
+                  <Route exact path="/register" element={<RegisterPage/>}  />
+              </Routes>
+            </AuthProvider>
+          </Router>
+      </div>
+       
     </div>
       
     

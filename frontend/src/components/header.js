@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { Link } from "react-router-dom";
 import AuthContext from '../context/authContext';
-import './header.css'
+import HeaderCSS from './header.module.css'
 
 const Header = () => {
 
@@ -9,10 +9,14 @@ const Header = () => {
  
   return (
     
-    !user ? <div> Mail</div> :
+    
+    !user ? 
+    <div>
+      
+    </div> :
     <div>
         <nav>
-          <ul className='header-nav'>
+          <ul className={HeaderCSS.nav}>
             <li>
               <Link to="/">Inbox</Link>
             </li>
@@ -25,7 +29,7 @@ const Header = () => {
             <li>
               <button
                 type="button"
-                className="link-button"
+                className= {HeaderCSS.button}
                 onClick={logout}
               >
               Logout

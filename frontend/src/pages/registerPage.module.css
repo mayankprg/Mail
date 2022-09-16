@@ -1,0 +1,69 @@
+.regdiv{
+    display: flex;
+    
+    width: 1300px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: aliceblue; */
+    
+}
+
+
+.img {
+    height: min(475px,40vw);
+    width: min(475px,40vw);
+    margin-right: 50px;
+}
+
+
+
+
+@media (max-width: 1012px) {
+    .img {
+        display: none;
+    }
+
+    .regdiv{
+        width: 100%;
+    }
+    
+    
+
+}
+
+
+
+@media (max-width: 532px) {
+    .registerform {
+        width: 100%;
+        height: 100%; 
+        padding: 10px 0 10px 0;
+    }
+
+    .registerform > form > label {
+        width: 90%;
+    }
+
+    .regdiv > p {
+        font-size: 2rem !important;
+    }
+
+}
+
+
+
+
+
+
+.regformdiv{
+    display: flex;
+    justify-content: center;
+}
+
+.regdiv > p {
+    font-size: 3rem;
+    color: #11817a;
+    font-weight: bold;
+   
+}

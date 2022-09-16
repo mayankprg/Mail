@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import loginCSS from './login.module.css'
 import AuthContext from '../context/authContext';
 import { Link } from "react-router-dom";
 
@@ -18,38 +17,32 @@ const LoginForm = () => {
         loginUser(credentials)
     }
 
-    const handleEmailChange = (event)=>{
-        setCredentials({...credentials, email: event.target.value});
-    }
-        
-    const handlePasswordChange = (event)=>{
-        setCredentials({...credentials, password: event.target.value});
-    }
+
 
 
   return (
-        
-        <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={credentials.email} onChange={handleEmailChange} />
-            <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-            </Form.Text>
-        </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={credentials.password} onChange={handlePasswordChange} />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-        Login
-        </Button>
-        <Link to="/register">Sign up</Link>
-    </Form>
+        <div className={loginCSS.loginform}>
+            <p>Login</p>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Email
+                    <input autoCapitalize='off'  type="email" name="Email" 
+                    value={credentials.email} 
+                    onChange={(event)=>setCredentials({...credentials, email: event.target.value})} />
+                </label>
+                <label>
+                    Password
+                        <input autoCapitalize='off'  type="password" name="password" 
+                        value={credentials.password} 
+                        onChange={(event)=> setCredentials({...credentials, password: event.target.value})} />
+                </label>
+                <input type="submit" name="login" value="Login"/>
+            </form>
+            <Link to="/register">Sign up</Link>
+        </div>
 
-
-  )
+    )
 }
 
 export default LoginForm;

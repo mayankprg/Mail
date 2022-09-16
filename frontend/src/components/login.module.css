@@ -1,4 +1,4 @@
-.registerform {
+.loginform {
     border: solid 2px black;
     border-radius: 20px;
     display: flex;
@@ -13,7 +13,8 @@
 }
 
 
-.registerform>p {
+
+.loginform > p {
    
 	color: #fff;
     font-weight: bold;
@@ -21,8 +22,7 @@
 	
 }
 
-
-.registerform > form {
+.loginform > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,13 +30,7 @@
 }
 
 
-label {
-    display: block;
-    margin: 0.5rem 0;
-}
-
-
-input:not([type='submit'])  {
+.loginform input:not([type='submit'])  {
     
     display: block;
     padding: 10px;
@@ -53,7 +47,8 @@ input:not([type='submit'])  {
 }
 
 
-input[type="submit"]{
+
+.loginform input[type="submit"]{
     width: 60%;
 	height: 40px;
 	margin: 10px auto;
