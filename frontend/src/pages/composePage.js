@@ -2,12 +2,15 @@
 import React from 'react'
 
 import ComposeForm from '../components/composeForm'
-
+import composeCSS from './composePage.module.css'
 
 const ComposePage = () => {
   return (
-    <ComposeForm />
+    <div className={composeCSS["form-div"]}>
+		<ComposeForm />
+    </div>
+    
   )
 }
 
-export default ComposePage
+export default ComposePage;

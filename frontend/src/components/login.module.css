@@ -1,17 +1,20 @@
 .loginform {
-    border: solid 2px black;
+    
     border-radius: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: min(60vw, 500px);
-    height: min(60vw, 700px);
-
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    padding: 0 15px;
+    width: min(500px, 40vw);
+    height: min(500px, 40vw);
+    background-color: #e94e1b;
     color: #fff;
 }
 
+.error {
+    color: rgb(0, 0, 0);
+}
 
 
 .loginform > p {
@@ -21,6 +24,45 @@
 	
 	
 }
+
+
+
+@media (max-width: 1012px) {
+    .loginform {
+        width: 100%;
+        height: 100%; 
+        padding: 25px 20px ;
+    }
+
+    .loginform > form > label {
+        width: 60%;
+    }
+
+}
+
+@media (max-width: 532px) {
+    .loginform {
+        width: 100%;
+        height: 100%; 
+        padding: 10px 0 10px 0;
+    }
+
+    .loginform > form > label {
+        width: 90%;
+    }
+
+}
+
+
+
+.loginform label {
+    display: block;
+    margin: 0.5rem 0;
+    color: #fff;
+    width: min(300px, 25vw);
+}
+
+
 
 .loginform > form {
     display: flex;
@@ -32,17 +74,15 @@
 
 .loginform input:not([type='submit'])  {
     
-    display: block;
     padding: 10px;
     width: 100%;
     height: 30px;
     border-radius: 5px;
     justify-content: center;
-	display: flex;
-    margin: 2px auto;
+    /* margin: 2px auto; */
     outline: none;
     border: none;
-    background: #e0dede;
+    background: #eeeded;
     font-weight: 300;
 }
 
@@ -55,7 +95,7 @@
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #08a19a;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
@@ -64,4 +104,12 @@
 	border-radius: 5px;
 	transition: .2s ease-in;
 	cursor: pointer;
+}
+
+
+.divider {
+    border-top: 1px solid black;
+    width: 50%;
+    margin: 20px 10px;
+
 }

@@ -9,12 +9,19 @@ const LoginForm = () => {
         email: '',
         password: '',
     });
+    const [errors, setErrors] = useState(null);
 
-    let {loginUser}  = useContext(AuthContext);
+    let {loginUser} = useContext(AuthContext);
 
     let handleSubmit = event =>{
         event.preventDefault();
         loginUser(credentials)
+        .then(response => {
+            if (response == "error"){
+                setErrors("Password /or Username Invalid!")
+            }
+        })
+ 
     }
 
 
@@ -38,7 +45,12 @@ const LoginForm = () => {
                         onChange={(event)=> setCredentials({...credentials, password: event.target.value})} />
                 </label>
                 <input type="submit" name="login" value="Login"/>
+                {errors &&<p className={loginCSS.error}>{errors}</p>}
             </form>
+            <p>Don't have an account? </p>
+            <div className={loginCSS.divider}>
+                
+            </div>
             <Link to="/register">Sign up</Link>
         </div>
 

@@ -1,0 +1,13 @@
+.rply-btn {
+    border-radius: 15px;
+    padding: 7px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family:  "Be Vietnam Pro", Arial,sans-serif;
+    border: none;
+}
+
+/* 
+.rply-btn > span {
+    margin-right: 5px;
+} */

@@ -1,6 +1,7 @@
-.regdiv{
+.logindiv{
     display: flex;
-  
+    
+    /* width: 1300px; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -13,8 +14,14 @@
     height: min(475px,40vw);
     width: min(475px,40vw);
     margin-right: 50px;
+    transform: translateX(-100%);
+    transition: all 1s;
 }
 
+
+.animate {
+    transform: translateX(0);
+}
 
 
 
@@ -23,7 +30,7 @@
         display: none;
     }
 
-    .regdiv{
+    .logindiv{
         width: 100%;
     }
     
@@ -34,17 +41,17 @@
 
 
 @media (max-width: 532px) {
-    .regformdiv {
+    .loginformdiv {
         width: 100%;
         height: 100%; 
         padding: 10px 0 10px 0;
     }
 
-    .regformdiv > form > label {
+    .loginformdiv > form > label {
         width: 90%;
     }
 
-    .regdiv > p {
+    .logindiv > p {
         font-size: 2rem !important;
     }
 
@@ -52,12 +59,24 @@
 
 
 
-.regformdiv{
+.logindiv > p {
+    font-size: 3rem;
+    color: #11817a;
+    font-weight: bold;
+   
+	
+}
+
+
+
+
+
+.loginformdiv{
     display: flex;
     justify-content: center;
 }
 
-.regdiv > p {
+.loginformdiv > p {
     font-size: 3rem;
     color: #11817a;
     font-weight: bold;

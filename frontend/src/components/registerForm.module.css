@@ -13,10 +13,12 @@
 }
 
 
+
 .registerform > p {
 	color: #fff;
     font-weight: bold;
 }
+
 
 
 @media (max-width: 1012px) {
@@ -29,8 +31,6 @@
     .registerform > form > label {
         width: 60%;
     }
-    
-
 
 }
 
@@ -44,12 +44,8 @@
     .registerform > form > label {
         width: 90%;
     }
-    
-
 
 }
-
-
 
 
 
@@ -61,12 +57,14 @@
 }
 
 
+
 .registerform label {
     display: block;
     margin: 0.5rem 0;
     color: #fff;
     width: min(300px, 25vw);
 }
+
 
 
 .registerform input:not([type='submit'])  {
@@ -101,6 +99,8 @@
 	transition: .2s ease-in;
 	cursor: pointer;
 }
+
+
 
 .divider {
     border-top: 1px solid black;

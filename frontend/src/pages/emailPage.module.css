@@ -1,0 +1,27 @@
+.email-div {
+    padding: 10px;
+
+}
+
+
+.heading {
+    font-weight: 700;
+}
+
+
+.email-div > article p {
+    margin: 0;
+}
+
+
+.divider {
+    height: 1px;
+    width: 96%;
+    border: 2px solid rgb(182, 180, 180);
+    margin: 15px auto;
+}
+
+.email-body {
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+}

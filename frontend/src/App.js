@@ -12,6 +12,9 @@ import ArchivedPage from './pages/archivedPage';
 import PrivateRoute from './utils/privateRoute';
 import RegisterPage from './pages/registerPage';
 import SentPage from './pages/sentPage'
+import UserInfo from './components/userInfo';
+import { EmailProvider } from './context/emailContext';
+import EmailPage from './pages/emailPage';
 
 export const App = () => {
 
@@ -19,41 +22,56 @@ export const App = () => {
   return (
     <div>
       <h1 className={AppCSS.heading}>Mail.COM</h1>
-      <div className={AppCSS.App}>
+      <div className={AppCSS['App']}>
+      
         <Router>
-            <AuthProvider>
-              <Header/>
-              <Routes>
-                  <Route path="/"
-                  element={
-                    <PrivateRoute> 
-                      <Inbox/>
-                    </PrivateRoute> 
-                  }/>
-                  <Route exact path="/login" element={<LoginPage/>}  />
-                  <Route path="/compose" 
-                    element={ 
-                      <PrivateRoute> 
-                        <ComposePage/>
-                      </PrivateRoute> 
-                    }/>
-                      <Route path="/sent" 
-                    element={ 
-                      <PrivateRoute> 
-                        <SentPage/>
-                      </PrivateRoute> 
-                    }/>
-                  <Route path="/archived"
-                  element={
-                    <PrivateRoute> 
-                      <ArchivedPage/> 
-                    </PrivateRoute> 
-                  }/>
-                  <Route exact path="/register" element={<RegisterPage/>}  />
-              </Routes>
-            </AuthProvider>
-          </Router>
-      </div>
+          <AuthProvider>
+            <EmailProvider>
+              <div className={AppCSS['info-div']}>
+                <UserInfo/>
+              </div>
+              <div className={AppCSS['emails-div']}>
+                  <Header/>
+                  <Routes>
+                      <Route path="/"
+                      element={
+                        <PrivateRoute> 
+                          <Inbox/>
+                        </PrivateRoute> 
+                      }/>
+                      <Route path="/email/:id"
+                        element={
+                          <PrivateRoute> 
+                            <EmailPage/>
+                          </PrivateRoute> 
+                      }/>
+                      <Route exact path="/login" element={<LoginPage/>}  />
+                      <Route path="/compose" 
+                        element={ 
+                          <PrivateRoute> 
+                            <ComposePage/>
+                          </PrivateRoute> 
+                        }/>
+                          <Route path="/sent" 
+                        element={ 
+                          <PrivateRoute> 
+                            <SentPage/>
+                          </PrivateRoute> 
+                        }/>
+                      <Route path="/archived"
+                      element={
+                        <PrivateRoute> 
+                          <ArchivedPage/> 
+                        </PrivateRoute> 
+                      }/>
+                      <Route exact path="/register" element={<RegisterPage/>}  />
+                  </Routes>
+              </div>  
+              </EmailProvider>
+          </AuthProvider>
+        </Router>
+        </div>
+     
        
     </div>
       

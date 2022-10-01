@@ -1,23 +1,31 @@
-.nav{
-    display: flex;
-    flex-direction: row;
+
+
+
+.header-div {
+    
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    margin-bottom: 10px;
+    padding-top: 10px;
     
 }
 
-.nav > li{
-    margin: 0 10px;
-    list-style-type: none;
+
+.grid-container {
+    display: grid;
+    grid-gap: 0;
+    width: min(40%, 20vw);
+   
 }
+  
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px 100px 20px 5px;
+    width: 100%;
+    grid-row: 1; 
+    
 
 
-.button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    display: inline;
-    color: #0d6efd;
-    margin: 0;
-    padding: 0;
+
+    
   }
-

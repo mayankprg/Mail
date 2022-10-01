@@ -2,6 +2,8 @@ import React, {useContext, useState} from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/authContext';
+import ComposeCSS from './compose.module.css';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -10,15 +12,18 @@ const axios = require('axios').default;
 
 const ComposeForm = () => {
 
-    let {user, authTokens} = useContext(AuthContext);
+    const location = useLocation();
 
-    let [email, setEmail] = useState({
+    const {user, authTokens} = useContext(AuthContext);
+
+    const [email, setEmail] = useState({
         from: user.username,
-        recipients: "",
-        subject: "",
-        body: "",
+        recipients: location.state === null  ? "":location.state.data.sender,
+        subject: location.state === null  ? "":location.state.data.subject,
+        body: location.state === null  ? "":(location.state.data.body.startsWith("Re") ? location.state.data.body: `Re ${location.state.data.body}`),
     })
 
+    
     const handleSubmit = async (e)=>{
         e.preventDefault();
         let response = await axios.post(`http://127.0.0.1:8000/api/emails`,  { 
@@ -26,14 +31,14 @@ const ComposeForm = () => {
                 body: email.body,
                 subject: email.subject
             },
-        { 
-            headers:
-                {
-                    'Content-Type': 'application/json'
-                    ,'Authorization': 'Bearer ' + String(authTokens.access)
-                    
-                }
-        }
+            { 
+                headers:
+                    {
+                        'Content-Type': 'application/json'
+                        ,'Authorization': 'Bearer ' + String(authTokens.access)
+                        
+                    }
+            }
         ); 
         console.log(response)
 
@@ -49,6 +54,7 @@ const ComposeForm = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>To:</Form.Label>
                 <Form.Control type="email"  placeholder="Enter email"  
+                multiple
                 value={email.recipients}
                 onChange={e=>setEmail({...email, recipients: e.target.value})} />
             </Form.Group>
@@ -68,6 +74,7 @@ const ComposeForm = () => {
                     as="textarea"
                     style={{ height: '100px' }}
                     value={email.body}
+                    className={ComposeCSS['body']}
                     onChange={e=>{setEmail({...email, body: e.target.value})}}
                />
             </Form.Group>

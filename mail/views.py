@@ -132,6 +132,7 @@ def email(request, email_id):
     # Query for requested email
     try:
         email = Email.objects.get(user=request.user, pk=email_id)
+       
     except Email.DoesNotExist:
         return Response({"error": "Email not found."}, status=404)
 

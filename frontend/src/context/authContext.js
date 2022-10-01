@@ -28,16 +28,23 @@ export const AuthProvider = ({children}) => {
         const formData = new FormData();
         formData.append('username', props.email);
         formData.append('password', props.password);
-        let response = await axios.post('http://127.0.0.1:8000/api/token/', formData);
-        if (response.status === 200){
-            setAuthTokens(response.data);
-            setUser(jwt_decode(response.data.access));
-            localStorage.setItem('authnTokens', JSON.stringify(response.data));
-            navigate('/');
-            setLoading(false);
-        } else {
-            alert("something went wrong!");
+        try {
+            let response = await axios.post('http://127.0.0.1:8000/api/token/', formData);
+            if (response.status === 200){
+                setAuthTokens(response.data);
+                setUser(jwt_decode(response.data.access));
+                localStorage.setItem('authnTokens', JSON.stringify(response.data));
+                navigate('/');
+                setLoading(false);
+            }
+        } catch(err){
+            
+            return "error"
         }
+       
+      
+            
+       
     }
 
     useEffect(() => {

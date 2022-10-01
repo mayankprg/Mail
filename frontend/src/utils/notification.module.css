@@ -1,0 +1,72 @@
+.main-div{
+    position: fixed;
+    bottom: 20px; 
+    background-color: rgb(9, 173, 9);
+    right: 0;
+    width: 450px;
+    height: 147px;
+
+    
+
+
+}
+
+.red {
+    background-color: rgb(209, 22, 22);
+}
+
+
+
+
+.div-style {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    padding: 10px;
+}
+
+
+@keyframes show {
+    from {
+        transform: translate(100%);
+    } 
+    to {
+        transform: translate(0);
+    }
+}
+
+
+ .animate{
+    animation-name: show;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-play-state:  running;
+}
+
+
+.close {
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+
+
+    position:absolute;
+    right: 10px;
+    top: 1px;
+}
+
+.msg-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.message {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+   
+   
+}
