@@ -11,12 +11,7 @@ const RenderMails = ({data}) => {
 		<div className={renderCSS["email-data"]}>
 			
 				{data.map((mail) =>
-						<div className={mail.read ? renderCSS["read"]: renderCSS["emails-div"] } key={mail.id} 
-							onClick={() =>{ 
-								navigate(`/email/${mail.id}`);
-							}}
-						>
-							
+						<div className={mail.read ? renderCSS["read"]: renderCSS["emails-div"] } key={mail.id} onClick={() =>{navigate(`/email/${mail.id}`);}}>
 							<table className={renderCSS["content-tb"]}>
 								<tbody>
 								<tr>

@@ -5,7 +5,6 @@ import EmailCSS from './emailPage.module.css';
 import ReplyButton from '../components/replyButton';
 import AuthContext from '../context/authContext';
 
-
 const EmailPage = () => {
 	
 	const [email, setEmail] = useState({
@@ -14,11 +13,12 @@ const EmailPage = () => {
         subject: "",
         body: "",
 		timeStamp: "",
+		archived: false,
     })
 	const [data, setData] = useState();
 	const {user} = useContext(AuthContext);
 	const {id} = useParams();
-	const {getEmail} = useContext(EmailContext);
+	const {getEmail, archive} = useContext(EmailContext);
 
 	useEffect(()=> {
 		getEmail(id)
@@ -29,11 +29,14 @@ const EmailPage = () => {
 				subject: data.subject,
 				body: data.body,
 				timeStamp: data.timestamp,
+				archived: data.archived? "Unarchive": "Archive",
 			})
 			setData({data:data});
 		})
 		
 	},[])
+
+	
 
 
 	return (
@@ -45,6 +48,23 @@ const EmailPage = () => {
 				<p><span className={EmailCSS['heading']}>TimeStamp:</span> {email.timeStamp}</p>
 			</article>
 			{user.username === email.from? null:<ReplyButton data={data}/>}
+
+			<button className={EmailCSS['btn']}
+			onClick={()=> {
+					archive(id, email.archived)
+					.then(status =>{
+						if (status === 204 && email.archived === "Archive") {
+							setEmail({...email, archived: "Unarchive"})
+						} else {
+							setEmail({...email, archived: "Archive"})
+						}
+					})
+					console.log(email.archived)
+				}}
+			>
+				{email.archived}
+			</button>
+			
 			<div className={EmailCSS['divider']}/>
 			<article>
 				<p className={EmailCSS['email-body']}>{email.body}</p>

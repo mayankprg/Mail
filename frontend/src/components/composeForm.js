@@ -20,7 +20,7 @@ const ComposeForm = () => {
         from: user.username,
         recipients: location.state === null  ? "":location.state.data.sender,
         subject: location.state === null  ? "":location.state.data.subject,
-        body: location.state === null  ? "":(location.state.data.body.startsWith("Re") ? location.state.data.body: `Re ${location.state.data.body}`),
+        body: location.state === null  ? "":(location.state.data.body.startsWith("Re") ? location.state.data.body: `Re: ${location.state.data.body}`),
     })
 
     

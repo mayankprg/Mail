@@ -9,6 +9,16 @@
 }
 
 
+.btn {
+    border-radius: 32px;
+    padding: 7px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family:  "Be Vietnam Pro", Arial,sans-serif;
+    border: none;
+    margin-left: 10px;
+}
+
 .email-div > article p {
     margin: 0;
 }

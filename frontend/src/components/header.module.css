@@ -5,27 +5,70 @@
     
     box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
     margin-bottom: 10px;
-    padding-top: 10px;
+    /* height: 90px; */
+    padding: 9px;
+
+    /* border: 2px solid green; */
     
 }
 
 
 .grid-container {
     display: grid;
-    grid-gap: 0;
+    grid-gap: 5%;
     width: min(40%, 20vw);
    
 }
   
 .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px 100px 20px 5px;
+
     width: 100%;
     grid-row: 1; 
+    border-radius: 15px;
+    padding: 1px;
+    background-color: white;
+    border: 2px solid white;
+}
+
+
+.grid-item:focus {
+    border-color:black;
     
+}
+
+.grid-item  a,
+a:active,
+a:hover
+{
+    text-decoration: none;
+    color: black;
+}
+
+
+.header-btn{
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family:  "Be Vietnam Pro", Arial,sans-serif;
+    border-radius: 32px;
+}
+
+
+.active {
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family:  "Be Vietnam Pro", Arial,sans-serif;
+    border-radius: 32px;
+    background-color: rgb(238, 116, 116);
+}
+
+.active:hover {
+    background-color: rgb(235, 91, 91);
+}
 
 
 
-    
-  }
+.header-btn:hover {
+    background-color: rgb(245, 224, 224);
+}

@@ -31,7 +31,7 @@ export const App = () => {
                 <UserInfo/>
               </div>
               <div className={AppCSS['emails-div']}>
-                  <Header/>
+                  <Header />
                   <Routes>
                       <Route path="/"
                       element={

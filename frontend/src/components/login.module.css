@@ -8,7 +8,7 @@
     padding: 0 15px;
     width: min(500px, 40vw);
     height: min(500px, 40vw);
-    background-color: #e94e1b;
+    background-color: #dd5528;
     color: #fff;
 }
 
@@ -74,6 +74,8 @@
 
 .loginform input:not([type='submit'])  {
     
+    
+
     padding: 10px;
     width: 100%;
     height: 30px;
@@ -89,6 +91,14 @@
 
 
 .loginform input[type="submit"]{
+
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family:  "Be Vietnam Pro", Arial,sans-serif;
+    border-radius: 32px;
+
+
     width: 60%;
 	height: 40px;
 	margin: 10px auto;
@@ -101,8 +111,7 @@
 	margin-top: 20px;
 	outline: none;
 	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
+	
 	cursor: pointer;
 }
 
