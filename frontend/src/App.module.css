@@ -26,3 +26,12 @@
     font-size: 43pt;
 }
 
+
+@media (max-width: 900px) {
+    .info-div{
+        display: none;
+    }
+    .emails-div {
+        overflow-x: hidden;
+    }
+}

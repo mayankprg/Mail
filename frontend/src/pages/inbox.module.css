@@ -1,5 +1,7 @@
 /* overflow-y: scroll */
 
 .inboxdiv{
-
+    background-color: grey;
+    padding: 10px;
+    width: 100%;
 }

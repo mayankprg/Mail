@@ -9,7 +9,6 @@ const RenderMails = ({data}) => {
 	let navigate = useNavigate();
     return (
 		<div className={renderCSS["email-data"]}>
-			
 				{data.map((mail) =>
 						<div className={mail.read ? renderCSS["read"]: renderCSS["emails-div"] } key={mail.id} onClick={() =>{navigate(`/email/${mail.id}`);}}>
 							<table className={renderCSS["content-tb"]}>
@@ -19,8 +18,8 @@ const RenderMails = ({data}) => {
 										{mail.sender}
 									</td>
 									<td className={`${renderCSS["truncate"]}`}>
-										<span className={`${renderCSS["truncate"]} ${renderCSS["subject"]}`} >{mail.subject? mail.subject: "(no subject)"}</span>
-										<span className={`${renderCSS["truncate"]} ${renderCSS["body"]}`}>-{mail.body}</span>
+										<span className={` ${renderCSS["subject"]}`} >{mail.subject? mail.subject: "(no subject)"}</span>
+										<span className={` ${renderCSS["body"]}`}>-{mail.body}</span>
 									</td>
 									<td className={`${renderCSS["date"]}`}>
 										{

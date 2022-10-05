@@ -47,23 +47,79 @@
 
 .subject {
     font-weight: inherit;
+    
+  
+   
 }
 
 .body {
     font-weight: 100;
     color: grey;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    border: red 1px solid;
+   
 }
 
 .date {
     font-weight: normal;
+    border: green 1px solid;
 }
 
 
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
+    .truncate{
+        all: unset;
+
+
+        /* overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        max-width: 0; */
+        
+        
+    }
+
+    .body {
+        display: block;
+        overflow: visible;
+    }
+
+
+    .content-tb {
+        all: unset;
+       
+    }
+
+    td {
+        display: block;
+    }
+
+
+
+    .content-tb  td:nth-child(1){
+        width: max-content !important ;
+        min-width: unset !important;
+    }
+    
+    .content-tb  td:nth-child(2){
+        width: 100% !important ;
+
+        /* padding-right: 100px; */
+    }
+    
+    .content-tb  td:nth-child(3){
+        padding-left: 0 !important;
+        
+    }
+
+   
     
 
-    
 }
 
 
@@ -73,29 +129,32 @@
 }
 
 
-.content-tb > tbody > tr td:nth-child(1){
+.content-tb  td:nth-child(1){
     width: 15%;
     min-width: 200px;
 }
 
-.content-tb > tbody > tr td:nth-child(2){
+.content-tb  td:nth-child(2){
+
     width: 70%;
     /* padding-right: 100px; */
 }
 
-.content-tb > tbody > tr td:nth-child(3){
+.content-tb  td:nth-child(3){
     padding-left: 280px;
     white-space: nowrap;
 }
 
 
-.truncate {
+
+.truncate { 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-
     width: 100%;
     max-width: 0;
+    display: inline-block;
+    border: yellow 1px solid;
 }
 
 
