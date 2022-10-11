@@ -107,3 +107,11 @@
     width: 100%;
     margin: 5px 0;
 }
+
+
+.errors {
+    margin-bottom: 0;
+    color: black;
+    font-weight: 100;
+    font-size: 0.85em;
+}

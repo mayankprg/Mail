@@ -1,40 +1,33 @@
-import React, {useState} from 'react'
+import React, {} from 'react'
 import NotifiyCSS from './notification.module.css'
+import ReactDOM from 'react-dom';
+import CreateContainer from './createContainer';
+import 'material-icons/iconfont/material-icons.css';
 
 
 
+const container = CreateContainer();
 
-
-const Notification = (props) => {
+export default function Notification({type, data}) {
     
-    let [isActive, setActive] = useState(false);
-    if(props.type === "danger"){
-        setActive(true);
-    }
+    let handleClose = (event)=> {
 
-    const close = (event)=>{
-        event.target.parentElement.remove();
     }
+    
+    return ReactDOM.createPortal(
+      
+            <div className={`${NotifiyCSS.notification} ${NotifiyCSS.animate} ${type === "danger"? NotifiyCSS.red: null}`}>
+                <button onClick={handleClose}
+                    className={NotifiyCSS.close}>
+                    <span className="material-icons">close</span>
+                </button>
 
-    return (
-        <div className={`
-            ${NotifiyCSS['main-div']} 
-            ${NotifiyCSS['div-style']}
-            ${NotifiyCSS['animate']}
-            ${isActive? NotifiyCSS['red']: null}
-            
-        `}
-            
-        >
-            <div className={NotifiyCSS["msg-div"]}>
-                <p className={NotifiyCSS["message"]}> {props.message} </p> 
+                <div className={NotifiyCSS["msg-div"]}>
+                    <p className={NotifiyCSS["message"]}>{data}</p>
+                </div>
+
             </div>
-           
-            <p onClick={(event)=>{close(event)}}
-            className={NotifiyCSS["close"]}>✘</p>
-
-        </div>
-    )
+        ,
+        container
+    );
 }
-
-export default Notification

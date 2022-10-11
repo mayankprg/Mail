@@ -5,6 +5,8 @@
     align-items: center;
     flex-direction: column;
     /* background-color: aliceblue; */
+
+    height: 99vh;
     
 }
 
@@ -26,9 +28,6 @@
     .regdiv{
         width: 100%;
     }
-    
-    
-
 }
 
 

@@ -12,7 +12,6 @@ import ArchivedPage from './pages/archivedPage';
 import PrivateRoute from './utils/privateRoute';
 import RegisterPage from './pages/registerPage';
 import SentPage from './pages/sentPage'
-import UserInfo from './components/userInfo';
 import { EmailProvider } from './context/emailContext';
 import EmailPage from './pages/emailPage';
 
@@ -21,24 +20,22 @@ export const App = () => {
 
   return (
     <div>
-      <h1 className={AppCSS.heading}>Mail.COM</h1>
+      
       <div className={AppCSS['App']}>
       
         <Router>
           <AuthProvider>
             <EmailProvider>
-              <div className={AppCSS['info-div']}>
-                <UserInfo/>
-              </div>
               <div className={AppCSS['emails-div']}>
+              
                   <Header />
                   <Routes>
                       <Route path="/"
-                      element={
-                        <PrivateRoute> 
-                          <Inbox/>
-                        </PrivateRoute> 
-                      }/>
+                        element={
+                          <PrivateRoute> 
+                            <Inbox/>
+                          </PrivateRoute> 
+                        }/>
                       <Route path="/email/:id"
                         element={
                           <PrivateRoute> 

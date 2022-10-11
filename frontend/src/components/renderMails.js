@@ -25,7 +25,7 @@ const RenderMails = ({data}) => {
                                     {mail.subject? mail.subject: "(no subject)"}
                                 </span>
                                 <span className={renderCSS.body}>
-                                    - {mail.body}
+                                {mail.body? ` - ${mail.body}`: ""}
                                 </span>
                             </div>
 

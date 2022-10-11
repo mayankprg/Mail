@@ -1,33 +1,89 @@
-
-
-
 .header-div {
     
     box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
     margin-bottom: 10px;
-    /* height: 90px; */
-    padding: 9px;
-
-    /* border: 2px solid green; */
+    
+    padding: 6px;
+    overflow: hidden;
+    height: 9%;
+    min-height: 80px;
     
 }
 
 
+.heading {
+    font-family: "Pocket Money", Times, serif;
+    display: inline-block;
+    font-size: 40pt;
+}
+
+.top-nav {
+    width: 100%;
+    padding: 10px;
+}
+
+.link {
+
+    border: 2px solid black;
+    float: right;
+    margin: 10px;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.link > span {
+    padding: 10px;
+}
+
+.link:hover{
+    background-color: rgb(211, 210, 210);
+}
+
+.button {
+    
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
 .grid-container {
     display: grid;
     grid-gap: 5%;
-    width: min(40%, 20vw);
-   
 }
-  
-.grid-item {
 
+@keyframes view {
+   from {
+    height: 9%;
+   }
+   tO{
+    height: 48%;
+   }
+}
+
+.open{
+    animation-name: view;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+.grid-item {
+    
     width: 100%;
-    grid-row: 1; 
     border-radius: 15px;
     padding: 1px;
     background-color: white;
     border: 2px solid white;
+    padding-top: 15px;
 }
 
 
@@ -35,6 +91,25 @@
     border-color:black;
     
 }
+
+
+@media (min-width: 900px) {
+    .grid-item {
+        grid-row: 1; 
+    }
+    
+    .grid-container {
+        width: min(40%, 20vw);
+    }
+    .link{
+        display: none;
+    }
+    .top-nav{
+        grid-row: 1;
+    }
+
+}
+
 
 .grid-item  a,
 a:active,
@@ -72,3 +147,4 @@ a:hover
 .header-btn:hover {
     background-color: rgb(245, 224, 224);
 }
+

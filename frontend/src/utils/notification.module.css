@@ -1,14 +1,10 @@
-.main-div{
-    position: fixed;
-    bottom: 20px; 
-    background-color: rgb(9, 173, 9);
-    right: 0;
-    width: 450px;
-    height: 147px;
 
-    
-
-
+.notification{
+    width: 320px;
+    height: 100px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    margin: 10px 0;
+    background-color: rgb(26, 247, 81);
 }
 
 .red {
@@ -34,7 +30,7 @@
 }
 
 
- .animate{
+.animate{
     animation-name: show;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
@@ -48,11 +44,20 @@
     height: fit-content;
     cursor: pointer;
 
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
 
     position:absolute;
     right: 10px;
-    top: 1px;
+    top: 5px;
+    
 }
+
+
 
 .msg-div{
     display: flex;

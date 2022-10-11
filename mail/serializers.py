@@ -13,8 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
 class SignupSerializer(serializers.ModelSerializer):
 
     confirmPassword = serializers.CharField(write_only=True)
-
-
     class Meta:
         model = User
        
@@ -23,11 +21,11 @@ class SignupSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
-
     def save(self):
         user = User(username=self.validated_data['username'],
             email=self.validated_data['username']
         )
+
         confirmPassword = self.validated_data["confirmPassword"]
         password = self.validated_data['password']
         if password != confirmPassword:
@@ -37,7 +35,7 @@ class SignupSerializer(serializers.ModelSerializer):
              raise serializers.ValidationError({'error': errors})
         user.set_password(self.validated_data['password'])
         user.save()
-
+      
         return user
 
 

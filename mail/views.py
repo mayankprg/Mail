@@ -11,9 +11,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-
-
-
 def index(request):
     return render(request, "index.html")
 
@@ -21,6 +18,7 @@ def index(request):
 @api_view(['POST'])
 def signup(request):
     serializer = SignupSerializer(data=request.data)
+
     data = {}
     if serializer.is_valid():
         user = serializer.save()
@@ -79,7 +77,7 @@ def compose(request):
     # Get contents of email
     subject = data.get("subject", "")
     body = data.get("body", "")
-   
+
     # Create one email for each recipient, plus sender
     users = set()
     users.add(request.user)
@@ -126,13 +124,13 @@ def mailbox(request, mailbox):
 
 @csrf_exempt
 @permission_classes([IsAuthenticated])
-@api_view(['GET','PUT'])
+@api_view(['GET', 'PUT'])
 def email(request, email_id):
 
     # Query for requested email
     try:
         email = Email.objects.get(user=request.user, pk=email_id)
-       
+
     except Email.DoesNotExist:
         return Response({"error": "Email not found."}, status=404)
 
@@ -155,4 +153,3 @@ def email(request, email_id):
         return Response({
             "error": "GET or PUT request required."
         }, status=400)
-

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import EmailCSS from './emailPage.module.css';
 import ReplyButton from '../components/replyButton';
 import AuthContext from '../context/authContext';
+import Notification from '../utils/notification';
 
 const EmailPage = () => {
 	
@@ -15,6 +16,9 @@ const EmailPage = () => {
 		timeStamp: "",
 		archived: false,
     })
+
+
+	const [notifications, setNotification] = useState([]);
 	const [data, setData] = useState();
 	const {user} = useContext(AuthContext);
 	const {id} = useParams();
@@ -36,7 +40,6 @@ const EmailPage = () => {
 		
 	},[])
 
-	
 
 
 	return (
@@ -47,21 +50,32 @@ const EmailPage = () => {
 				<p><span className={EmailCSS['heading']}>Subject:</span> {email.subject}</p>
 				<p><span className={EmailCSS['heading']}>TimeStamp:</span> {email.timeStamp}</p>
 			</article>
+
 			{user.username === email.from? null:<ReplyButton data={data}/>}
 
-			<button className={EmailCSS['btn']}
-			onClick={()=> {
+			<button 
+				className={EmailCSS['btn']}
+				onClick={()=> {
 					archive(id, email.archived)
 					.then(status =>{
-						if (status === 204 && email.archived === "Archive") {
-							setEmail({...email, archived: "Unarchive"})
-						} else {
-							setEmail({...email, archived: "Archive"})
-						}
-					})
-					console.log(email.archived)
-				}}
-			>
+							if (status === 204 && email.archived === "Archive") {
+								setEmail({...email, archived: "Unarchive"})
+								setNotification([...notifications, 
+									{
+										type: "success", 
+										id: notifications.length, 
+										data: "Email Archived"
+									}])
+							} else {
+								setEmail({...email, archived: "Archive"})
+								setNotification([...notifications, 
+									{
+										type: "success", 
+										id: notifications.length, 
+										data: "Email Unarchived"
+									}])
+							}})
+					}}>
 				{email.archived}
 			</button>
 			
@@ -69,6 +83,14 @@ const EmailPage = () => {
 			<article>
 				<p className={EmailCSS['email-body']}>{email.body}</p>
 			</article>
+
+
+			
+			{notifications.map(({id, type, data}) => (
+				<Notification key={id} type={type} data={data} />
+			))}
+
+			
 		</div>
 	)
 }

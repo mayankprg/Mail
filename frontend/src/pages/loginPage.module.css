@@ -1,11 +1,13 @@
 .logindiv{
     display: flex;
-    
-    /* width: 1300px; */
+    margin: auto auto;
+
     justify-content: center;
     align-items: center;
+
     flex-direction: column;
-    /* background-color: aliceblue; */
+    width: fit-content;
+    height: 99vh;
     
 }
 

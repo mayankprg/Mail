@@ -9,6 +9,7 @@ import email from '../stockImages/email2.svg'
 const loginPage = () => {
   return (
     <div  className={loginCss.logindiv}>
+      
       <p>Welcome, Again</p>
         <div className={loginCss.loginformdiv}> 
           <img className={`${loginCss.img}`}
@@ -19,6 +20,7 @@ const loginPage = () => {
           <LoginForm />
           
         </div>
+        <h1>Mails</h1>
     </div>
   )
 }
