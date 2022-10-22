@@ -12,6 +12,7 @@ export default function Notification({type, data}) {
     
     let handleClose = (event)=> {
 
+        event.target.parent.remove();
     }
     
     return ReactDOM.createPortal(
@@ -23,7 +24,9 @@ export default function Notification({type, data}) {
                 </button>
 
                 <div className={NotifiyCSS["msg-div"]}>
-                    <p className={NotifiyCSS["message"]}>{data}</p>
+                    <p className={NotifiyCSS["message"]} 
+                        onClick={handleClose}
+                    >{data}</p>
                 </div>
 
             </div>

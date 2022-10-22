@@ -20,7 +20,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -33,7 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    
+
     "http://localhost:3000",
 ]
 
@@ -57,13 +56,11 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-   
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
-
-
 
 
 SIMPLE_JWT = {
@@ -100,7 +97,6 @@ SIMPLE_JWT = {
 }
 
 
-
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 
@@ -119,7 +115,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-              os.path.join(BASE_DIR, 'frontend', 'build')
+            os.path.join(BASE_DIR, 'frontend', 'build')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -149,13 +145,14 @@ WSGI_APPLICATION = 'project3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'service': 'my_service',
-            'passfile': '.my_pgpass',
-        },
+        'NAME': 'maildb',
+        'USER': 'postgres',
+        'PASSWORD': 'M@yankrawat',
+        'HOST': 'localhost',
+        'PORT': '5432',
+
     }
 }
-
 
 
 AUTH_USER_MODEL = 'mail.User'
@@ -202,4 +199,3 @@ STATIC_URL = '/static/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

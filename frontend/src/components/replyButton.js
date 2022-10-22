@@ -1,6 +1,5 @@
 import React from 'react';
 import ButtonCSS from './replyButton.module.css'
-import ComposeForm from './composeForm';
 import { useNavigate } from 'react-router-dom';
 
 const ReplyButton = ({data}) => {
@@ -16,7 +15,7 @@ const ReplyButton = ({data}) => {
   return (
     <button  
       onClick={handleReply}
-      className={ButtonCSS["rply-btn"]}><span>⮌</span> Relpy</button>
+      className={ButtonCSS["rply-btn"]}><span>⮌</span> Reply</button>
   )
 }
 
