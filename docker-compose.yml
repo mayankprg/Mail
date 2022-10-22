@@ -18,15 +18,12 @@ services:
     db:
         image: postgres
         volumes:
-            - db-data:/maildb
+        - ./data/db:/var/lib/postgresql/data
         environment:
-        - POSTGRES_DB=maildb
+        - POSTGRES_DB=postgres
         - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=M@yankrawat
+        - POSTGRES_PASSWORD=postgres
     
-    volumes:
-        db-data:
-
 
 
 
