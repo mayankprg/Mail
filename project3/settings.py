@@ -145,10 +145,10 @@ WSGI_APPLICATION = 'project3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'maildb',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'M@yankrawat',
-        'HOST': 'localhost',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': 5432,
 
     }
