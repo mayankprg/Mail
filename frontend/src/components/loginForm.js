@@ -17,7 +17,7 @@ const LoginForm = () => {
         event.preventDefault();
         loginUser(credentials)
         .then(response => {
-            if (response == "error"){
+            if (response === "error"){
                 setErrors("Password /or Username Invalid!")
             }
         })

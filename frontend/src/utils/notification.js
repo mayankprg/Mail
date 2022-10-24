@@ -12,7 +12,7 @@ export default function Notification({type, data}) {
     
     let handleClose = (event)=> {
 
-        event.target.parent.remove();
+        event.target.parentElement.remove();
     }
     
     return ReactDOM.createPortal(
