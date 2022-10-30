@@ -20,23 +20,21 @@ const InboxMails = () => {
             }}
         );
         if (response.status=== 200){
-          return response.data;
+          setData(response.data);
         }
         
-   }
+   };
 
    useEffect(()=>{
     if (authTokens !== null){
-      getEmails()
-      .then(data =>setData(data));
-     
+      getEmails();
     }
-   },[authTokens])
+     // eslint-disable-next-line
+   }, []);
 
 
   return (
     data.length > 0 ?  <RenderMails data={data} /> : null
-   
   )
 }
 

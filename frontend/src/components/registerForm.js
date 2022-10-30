@@ -59,7 +59,6 @@ const RegisterForm = () => {
                     setErrors({...errors, email: response.data.username})
                 }
             } catch (err) {
-                console.log(err)
                 setErrors({...errors, password: err.response.data.password})
             }
          

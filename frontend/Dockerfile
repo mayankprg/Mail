@@ -1,14 +1,5 @@
 FROM node:18
-
-WORKDIR /usr/src/app/frontend
-
-COPY package*.json ./
-
-RUN npm install
-
+WORKDIR /django/frontend
 COPY . .
-
-EXPOSE 3000
-
-CMD [ "npm", "start" ]
+RUN npm run build
 

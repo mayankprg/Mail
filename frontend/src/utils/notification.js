@@ -1,4 +1,4 @@
-import React, {} from 'react'
+import React from 'react'
 import NotifiyCSS from './notification.module.css'
 import ReactDOM from 'react-dom';
 import CreateContainer from './createContainer';
@@ -11,8 +11,7 @@ const container = CreateContainer();
 export default function Notification({type, data}) {
     
     let handleClose = (event)=> {
-
-        event.target.parentElement.remove();
+        event.target.parentElement.parentElement.remove();
     }
     
     return ReactDOM.createPortal(
@@ -21,6 +20,7 @@ export default function Notification({type, data}) {
                 <button onClick={handleClose}
                     className={NotifiyCSS.close}>
                     <span className="material-icons">close</span>
+                    
                 </button>
 
                 <div className={NotifiyCSS["msg-div"]}>

@@ -38,7 +38,8 @@ const EmailPage = () => {
 			setData({data:data});
 		})
 		
-	},[])
+     // eslint-disable-next-line
+	}, []);
 
 
 
@@ -50,9 +51,7 @@ const EmailPage = () => {
 				<p><span className={EmailCSS['heading']}>Subject:</span> {email.subject}</p>
 				<p><span className={EmailCSS['heading']}>TimeStamp:</span> {email.timeStamp}</p>
 			</article>
-
 			{user.username === email.from? null:<ReplyButton data={data}/>}
-
 			<button 
 				className={EmailCSS['btn']}
 				onClick={()=> {
@@ -83,9 +82,6 @@ const EmailPage = () => {
 			<article>
 				<p className={EmailCSS['email-body']}>{email.body}</p>
 			</article>
-
-
-			
 			{notifications.map(({id, type, data}) => (
 				<Notification key={id} type={type} data={data} />
 			))}

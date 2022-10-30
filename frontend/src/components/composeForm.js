@@ -64,6 +64,18 @@ const ComposeForm = () => {
     }
 
     return (
+        // <form onSubmit={handleSubmit} data-theme="light">
+        //  <div className="form-control">
+        
+        //     <label className="input-group-lg">
+        //         <span >From:</span>
+        //         <input type="email" disabled value={email.from.toString()} class="input w-full max-w-xs " />
+        //     </label>
+        // </div>
+
+        // </form>
+    
+
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>From:</Form.Label>

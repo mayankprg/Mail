@@ -2,9 +2,9 @@
 .notification{
     width: 320px;
     height: 100px;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     margin: 10px 0;
-    background-color: rgb(26, 247, 81);
+    background-color: rgb(255, 255, 255);
 }
 
 .red {
@@ -64,14 +64,17 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    display: flex;
+    
 }
 
 
 .message {
+    font-family: "Google Sans", Arial,sans-serif;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: white;
-   
+    color: rgb(59, 59, 59);
+    margin: 0;
    
 }
