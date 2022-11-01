@@ -1,6 +1,8 @@
 version: '3'
 
+
 services:
+
   db:
     image: postgres
     volumes:
@@ -17,15 +19,17 @@ services:
       context: .
     command: bash -c "python manage.py migrate &&
                           gunicorn project3.wsgi --bind 0.0.0.0:8000"
-    # command: gunicorn project3.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
-      
+
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.prod
     volumes:
-      - react_build:/frontend/build
+      - ./src:/frontend/build
+    ports:
+      - "8080:80"
     
   nginx:
     image: nginx:latest
@@ -39,5 +43,7 @@ services:
       - backend
       - frontend
 
-volume:
-  react_build
+
+volumes:
+  react_build:
+
