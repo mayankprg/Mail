@@ -28,8 +28,8 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - ./src:/frontend/build
-    ports:
-      - "8080:80"
+    # ports:
+    #   - "8080:80"
     
   nginx:
     image: nginx:latest
