@@ -16,7 +16,7 @@ export const EmailProvider = ({children}) => {
 
   
     const getEmail = async (emailId, read) => {
-        let emailResponse = await axios.get(`http://127.0.0.1:8000/api/emails/${emailId}`, { 
+        let emailResponse = await axios.get(`http://127.0.0.1/api/emails/${emailId}`, { 
             headers:
         {
             'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const EmailProvider = ({children}) => {
             
         }});
         if (!read){
-            await axios.put(`http://127.0.0.1:8000/api/emails/${emailId}`,{ 
+            await axios.put(`http://127.0.0.1/api/emails/${emailId}`,{ 
                 read: "True"
                 },
                 { 
@@ -47,7 +47,7 @@ export const EmailProvider = ({children}) => {
         if (bool === "Unarchive"){
             state = false
         }
-        let response = await axios.put(`http://127.0.0.1:8000/api/emails/${emailId}`,{ 
+        let response = await axios.put(`http://127.0.0.1/api/emails/${emailId}`,{ 
             archived: state
             },
             { 

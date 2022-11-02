@@ -11,7 +11,7 @@ const ArchivedMails = () => {
     let [data, setData] = useState([]);
 
     let getEmails = async () =>{
-        let response = await axios.get(`http://127.0.0.1:8000/api/emails/archive`,
+        let response = await axios.get(`http://127.0.0.1/api/emails/archive`,
         { headers:
              { 
                 'Content-Type': 'application/json'

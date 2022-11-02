@@ -1,0 +1,9 @@
+FROM node:18.8.0 as build
+WORKDIR /frontend
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD [ "npm", "start" ]
+
+# FROM nginx
+# COPY --from=build /frontend/build /usr/share/nginx/html

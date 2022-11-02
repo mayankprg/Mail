@@ -24,11 +24,10 @@ const ComposeForm = () => {
                                                 `Re: ${location.state.data.body}`),
     })
 
-    
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try {
-                let response = await axios.post(`http://127.0.0.1:8000/api/emails`,  { 
+                let response = await axios.post(`http://127.0.0.1/api/emails`,  { 
                     recipients: email.recipients,
                     body: email.body,
                     subject: email.subject
@@ -42,9 +41,9 @@ const ComposeForm = () => {
                         }
                 }
             )
-            console.log(response)
+        
             if (response.status === 201){
-                console.log(response)
+            
                 setNotification([...notifications,
                         {
                             id: notifications.length, 
@@ -64,16 +63,7 @@ const ComposeForm = () => {
     }
 
     return (
-        // <form onSubmit={handleSubmit} data-theme="light">
-        //  <div className="form-control">
-        
-        //     <label className="input-group-lg">
-        //         <span >From:</span>
-        //         <input type="email" disabled value={email.from.toString()} class="input w-full max-w-xs " />
-        //     </label>
-        // </div>
-
-        // </form>
+      
     
 
         <Form onSubmit={handleSubmit}>

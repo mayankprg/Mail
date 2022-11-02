@@ -2,3 +2,4 @@ data
 .vscode
 .venv
 frontend
+db.sqlite3
