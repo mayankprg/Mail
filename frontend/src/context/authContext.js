@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
         formData.append('username', props.email);
         formData.append('password', props.password);
         try {
-            let response = await axios.post('http://127.0.0.1:8000/api/token/', formData);
+            let response = await axios.post('http://127.0.0.1/api/token/', formData);
             if (response.status === 200){
                 setAuthTokens(response.data);
                 setUser(jwt_decode(response.data.access));
@@ -62,7 +62,7 @@ export const AuthProvider = ({children}) => {
 
     let updateToken = async () => {
       
-        let response = await axios.post('http://127.0.0.1:8000/api/token/refresh/',{'refresh': authTokens.refresh} );
+        let response = await axios.post('http://127.0.0.1:/api/token/refresh/',{'refresh': authTokens.refresh} );
         if (response.status === 200){
             setAuthTokens(response.data);
             setUser(jwt_decode(response.data.access));

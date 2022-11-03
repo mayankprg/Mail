@@ -44,7 +44,7 @@ const RegisterForm = () => {
         }
         if (!Object.values(errors).join('')){
             try {
-                let response = await axios.post("http://127.0.0.1:8000/api/signup/",{
+                let response = await axios.post("http://127.0.0.1/api/signup/",{
                     username: values.email,
                     password:values.password,
                     confirmPassword:values.confirmPassword

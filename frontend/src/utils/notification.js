@@ -4,13 +4,16 @@ import ReactDOM from 'react-dom';
 import CreateContainer from './createContainer';
 import 'material-icons/iconfont/material-icons.css';
 
-
+import { useLocation } from 'react-router-dom';
 
 const container = CreateContainer();
 
 export default function Notification({type, data}) {
     
+
+    let currentUrl = useLocation()
     let handleClose = (event)=> {
+        console.log(event.target.parentElement.parentElement)
         event.target.parentElement.parentElement.remove();
     }
     
@@ -28,7 +31,6 @@ export default function Notification({type, data}) {
                         onClick={handleClose}
                     >{data}</p>
                 </div>
-
             </div>
         ,
         container

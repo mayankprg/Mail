@@ -30,12 +30,13 @@ SECRET_KEY = '05$4$3aew(8ywondz$g!k4m779pbvn9)euj0zp7-ae*x@4pxr+'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "prg-mail.herokuapp.com", "localhost", "127.0.0.1"
+    "localhost", "127.0.0.1", "django"
 ]
 
 CORS_ALLOWED_ORIGINS = [
 
     "http://localhost:3000",
+
 ]
 
 
