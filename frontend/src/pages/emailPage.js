@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import EmailCSS from './emailPage.module.css';
 import ReplyButton from '../components/replyButton';
 import AuthContext from '../context/authContext';
-import Notification from '../utils/notification';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EmailPage = () => {
 	
@@ -18,7 +19,8 @@ const EmailPage = () => {
     })
 
 
-	const [notifications, setNotification] = useState([]);
+	const notify = (message) => toast(message);
+
 	const [data, setData] = useState();
 	const {user} = useContext(AuthContext);
 	const {id} = useParams();
@@ -58,21 +60,13 @@ const EmailPage = () => {
 					archive(id, email.archived)
 					.then(status =>{
 							if (status === 204 && email.archived === "Archive") {
-								setEmail({...email, archived: "Unarchive"})
-								setNotification([...notifications, 
-									{
-										type: "success", 
-										id: notifications.length, 
-										data: "Email Archived"
-									}])
+								setEmail({...email, archived: "Unarchive"});
+								notify("Email Archived");
+						
 							} else {
 								setEmail({...email, archived: "Archive"})
-								setNotification([...notifications, 
-									{
-										type: "success", 
-										id: notifications.length, 
-										data: "Email Unarchived"
-									}])
+								notify("Email Unarchived");
+								
 							}})
 					}}>
 				{email.archived}
@@ -82,11 +76,7 @@ const EmailPage = () => {
 			<article>
 				<p className={EmailCSS['email-body']}>{email.body}</p>
 			</article>
-			{notifications.map(({id, type, data}) => (
-				<Notification key={id} type={type} data={data} />
-			))}
-
-			
+			<ToastContainer/>
 		</div>
 	)
 }

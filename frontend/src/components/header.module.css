@@ -57,15 +57,15 @@
 
 .grid-container {
     display: grid;
-    grid-gap: 5%;
+    
 }
 
 @keyframes view {
    from {
     height: 9%;
    }
-   tO{
-    height: 48%;
+   to{
+    height: 43%;
    }
 }
 
@@ -83,7 +83,6 @@
     padding: 1px;
     background-color: white;
     border: 2px solid white;
-    padding-top: 15px;
 }
 
 
@@ -95,11 +94,15 @@
 
 @media (min-width: 900px) {
     .grid-item {
-        grid-row: 1; 
+        grid-row: 1;
+        padding-top: 15px; 
     }
-    
+    .open {
+        animation-fill-mode: backwards;
+    }
     .grid-container {
         width: min(40%, 20vw);
+        grid-gap: 5%;
     }
     .link{
         display: none;

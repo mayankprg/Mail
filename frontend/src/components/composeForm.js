@@ -4,7 +4,9 @@ import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/authContext';
 import ComposeCSS from './compose.module.css';
 import { useLocation } from 'react-router-dom';
-import Notification from '../utils/notification';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const axios = require('axios').default;
@@ -12,8 +14,8 @@ const axios = require('axios').default;
 
 const ComposeForm = () => {
 
+    const notify = (message) => toast(message);
     const location = useLocation();
-    const [notifications, setNotification] = useState([]);
     const {user, authTokens} = useContext(AuthContext);
     const [email, setEmail] = useState({
         from: user.username,
@@ -23,48 +25,33 @@ const ComposeForm = () => {
                                                 location.state.data.body: 
                                                 `Re: ${location.state.data.body}`),
     })
-
+    // eslint-disable-next-line
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try {
                 let response = await axios.post(`http://127.0.0.1:8000/api/emails`,  { 
-                    recipients: email.recipients,
-                    body: email.body,
-                    subject: email.subject
-                },
-                { 
-                    headers:
-                        {
-                            'Content-Type': 'application/json'
-                            ,'Authorization': 'Bearer ' + String(authTokens.access)
-                            
-                        }
-                }
-            )
+                        recipients: email.recipients,
+                        body: email.body,
+                        subject: email.subject
+                    },
+                    { 
+                        headers:
+                            {
+                                'Content-Type': 'application/json'
+                                ,'Authorization': 'Bearer ' + String(authTokens.access)
+                                
+                            }
+                })
         
             if (response.status === 201){
-            
-                setNotification([...notifications,
-                        {
-                            id: notifications.length, 
-                            data: "Email sent",
-                            type: "success",
-                        }])
-            } 
+                notify("Email Sent");
+            }
         } catch(err) {
-            setNotification([...notifications,
-                {
-                    id: notifications.length, 
-                    data: err.response.data.error,
-                    type: "danger",
-                }])
+            notify(err.response.data.error);
         }
-       
     }
 
     return (
-      
-    
 
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -102,17 +89,11 @@ const ComposeForm = () => {
             <Button variant="primary" type="submit">
             Send
             </Button>
-            {
-                notifications.map(({id, type, data})=>(
-                <Notification 
-                    data={data} 
-                    key={id}
-                    type={type} 
-                />
-           ))}
+            <ToastContainer/>
             
         </Form>
     )
+
 }
 
-export default ComposeForm
+export default ComposeForm;

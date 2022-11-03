@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
 import AuthContext from '../context/authContext';
 import HeaderCSS from './header.module.css'
@@ -7,14 +7,43 @@ import 'material-icons/iconfont/material-icons.css';
 
 const Header = () => {
 
-	let {user, logout} = useContext(AuthContext);
+	const {user, logout} = useContext(AuthContext);
 	const location = useLocation();
 	const currentUrl = location.pathname;
 	const [active, setActive] = useState(false);
 
-
-
+	const [windowSize, setWindowSize] = useState(getWindowSize());
 	
+
+	useEffect(() => {
+		function handleWindowResize() {
+			setWindowSize(getWindowSize());
+		}
+
+		window.addEventListener('resize', handleWindowResize);
+
+		return () => {
+		window.removeEventListener('resize', handleWindowResize);
+		};
+	}, []);
+
+
+
+
+	function getWindowSize() {
+	const {innerWidth, innerHeight} = window;
+	return {innerWidth, innerHeight};
+	}
+
+	useEffect(()=>{
+		if (windowSize.innerWidth > 900){
+			setActive(false);
+		}
+	},[windowSize.innerWidth]);
+
+
+
+
 	return (
 		!user ? 
 		<div></div> :
