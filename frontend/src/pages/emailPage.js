@@ -47,30 +47,36 @@ const EmailPage = () => {
 
 	return (
 		<div className={EmailCSS["email-div"]}> 
-			<article>
-				<p><span className={EmailCSS['heading']}>From:</span> {email.from}</p>
-				<p><span className={EmailCSS['heading']}>To:</span> {email.recipients}</p>
-				<p><span className={EmailCSS['heading']}>Subject:</span> {email.subject}</p>
-				<p><span className={EmailCSS['heading']}>TimeStamp:</span> {email.timeStamp}</p>
-			</article>
-			{user.username === email.from? null:<ReplyButton data={data}/>}
-			<button 
-				className={EmailCSS['btn']}
-				onClick={()=> {
-					archive(id, email.archived)
-					.then(status =>{
-							if (status === 204 && email.archived === "Archive") {
-								setEmail({...email, archived: "Unarchive"});
-								notify("Email Archived");
-						
-							} else {
-								setEmail({...email, archived: "Archive"})
-								notify("Email Unarchived");
+			<div className={EmailCSS["top-email"]}>
+				<div className={EmailCSS["discription"]}>
+					<p><span className={EmailCSS['heading']}>From:</span> {email.from}</p>
+					<p><span className={EmailCSS['heading']}>To:</span> {email.recipients}</p>
+					<p><span className={EmailCSS['heading']}>Subject:</span> {email.subject}</p>
+					<p><span className={EmailCSS['heading']}>TimeStamp:</span> {email.timeStamp}</p>
+				</div>
+				<div className={EmailCSS["buttons"]}>
+					{user.username === email.from? null:<ReplyButton data={data}/>}
+					<button 
+						className={EmailCSS['btn']}
+						onClick={()=> {
+							archive(id, email.archived)
+							.then(status =>{
+									if (status === 204 && email.archived === "Archive") {
+										setEmail({...email, archived: "Unarchive"});
+										notify("Email Archived");
 								
-							}})
-					}}>
-				{email.archived}
-			</button>
+									} else {
+										setEmail({...email, archived: "Archive"})
+										notify("Email Unarchived");
+										
+									}})
+							}}>
+						{email.archived}
+					</button>
+				</div>
+			</div>
+			
+			
 			
 			<div className={EmailCSS['divider']}/>
 			<article>
