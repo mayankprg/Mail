@@ -62,7 +62,7 @@ export const AuthProvider = ({children}) => {
 
     let updateToken = async () => {
       
-        let response = await axios.post('http://127.0.0.1:/api/token/refresh/',{'refresh': authTokens.refresh} );
+        let response = await axios.post('http://127.0.0.1/api/token/refresh/',{'refresh': authTokens.refresh} );
         if (response.status === 200){
             setAuthTokens(response.data);
             setUser(jwt_decode(response.data.access));
