@@ -9,7 +9,7 @@ const SentMails = () => {
     let [data, setData] = useState([]);
 
     let getEmails = async () =>{
-        let response = await axios.get(`http://127.0.0.1/api/emails/sent`,
+        let response = await axios.get(`http://127.0.0.1:8000/api/emails/sent`,
         { headers:
              { 
                 'Content-Type': 'application/json'

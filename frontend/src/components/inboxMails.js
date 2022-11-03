@@ -11,7 +11,7 @@ const InboxMails = () => {
     let [data, setData] = useState([]);
 
     let getEmails = async () =>{
-        let response = await axios.get(`http://127.0.0.1/api/emails/inbox`,
+        let response = await axios.get(`http://127.0.0.1:8000/api/emails/inbox`,
         { headers:
              { 
                 'Content-Type': 'application/json'
