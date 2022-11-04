@@ -78,10 +78,10 @@ const EmailPage = () => {
 			
 			
 			
-			<div className={EmailCSS['divider']}/>
-			<article>
+			{/* <div className={EmailCSS['divider']}/> */}
+			<div className={EmailCSS['body']}>
 				<p className={EmailCSS['email-body']}>{email.body}</p>
-			</article>
+			</div>
 			<ToastContainer/>
 		</div>
 	)
